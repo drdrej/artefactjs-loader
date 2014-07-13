@@ -10,7 +10,9 @@ describe('Test load json', function () {
         var json = lib.load( path );
 
         assert.ok(json);
-        assert.equal( json.$path, path );
+
+        var Path = require( 'path' );
+        assert.equal( Path.normalize(json.$path), Path.normalize(path) );
         assert.ok( json.$modified );
         assert.ok( json.$json);
         assert.ok( json.$json.isReady );
@@ -22,12 +24,15 @@ describe('Test load json', function () {
 
     it( "load(json) - json is in proccess directory.", function (done) {
 
+        // no path passed, use in process.
         var lib = require('../lib');
         var path = './test-in-process.json';
         var json = lib.load( path );
 
         assert.ok(json);
-        assert.equal( json.$path, path );
+
+        var Path = require( 'path' );
+        assert.equal( Path.resolve(json.$path), Path.resolve(path) );
         assert.ok( json.$modified );
         assert.ok( json.$json);
         assert.ok( json.$json.isReady );

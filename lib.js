@@ -87,6 +87,9 @@ exports.load = function( path ) {
 
         console.log( "[ERROR] couldn't resolve file: " + path);
         return;
+    } else {
+        console.log( "-- file exists: " + path);
+        return loadInProcess(path);
     }
 
     return loadJSON( path );

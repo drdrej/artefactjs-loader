@@ -1,6 +1,6 @@
 {
   "name": "artefactjs-loader",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "load config for artefatjs.",
   "main": "lib.js",
   "scripts": {
