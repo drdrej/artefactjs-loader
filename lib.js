@@ -30,6 +30,37 @@ var loadJSON = function( path ) {
     };
 };
 
+
+var loadInProcess = function( path ) {
+    var Path = require( 'path' );
+
+    console.log( "-- in caller-path not exists, try in process..." );
+    var inProcess = Path.resolve( process.cwd(), path);
+
+    if( fs.existsSync(inProcess) ) {
+        return loadJSON( inProcess );
+    }
+};
+
+var loadInCaller = function(path) {
+    var callsite = require('callsite');
+
+    var stack = callsite();
+    var callerFile = stack[2].getFileName();
+
+    var Path = require( 'path' );
+    var callerDir = Path.dirname( callerFile );
+    var resolved = Path.resolve(callerDir, path);
+
+    console.log( "-- use caller-file to resolve json-path." );
+    console.log( " try: " + resolved );
+
+    if( fs.existsSync(resolved) ) {
+        return loadJSON(resolved);
+    }
+};
+
+
 exports.load = function( path ) {
     var S = require( 'string' );
     var str = S(path);
@@ -46,26 +77,13 @@ exports.load = function( path ) {
         console.log( "-- path not exists. path : " + path );
         console.log( "-- try to resolve... " );
 
-        var callsite = require('callsite');
-        var stack = callsite();
-        var callerFile = stack[1].getFileName();
+        var loaded = loadInProcess(path);
+        if( loaded )
+            return loaded;
 
-        var Path = require( 'path' );
-        var callerDir = Path.dirname( callerFile );
-
-        var resolved = Path.resolve(callerDir, path);
-        console.log( "-- use caller-file to resolve json-path." );
-        console.log( " try: " + resolved );
-        if( fs.existsSync(resolved) ) {
-            return loadJSON(resolved);
-        }
-
-        console.log( "-- in caller-path not exists, try in process..." );
-        var inProcess = Path.resolve( process.cwd(), path);
-
-        if( fs.existsSync(inProcess) ) {
-            return loadJSON( inProcess );
-        }
+        loaded = loadInCaller(path);
+        if( loaded )
+            return loaded;
 
         console.log( "[ERROR] couldn't resolve file: " + path);
         return;
