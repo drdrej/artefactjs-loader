@@ -36,7 +36,6 @@ exports.load = function( fnc, strategy ) {
         throw "ERROR: don't accept param:fnc";
     }
 
-
     var json = null;
 
     try {
