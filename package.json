@@ -1,6 +1,6 @@
 {
   "name": "artefactjs-loader",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "load config for artefatjs.",
   "main": "lib.js",
   "scripts": {
@@ -18,7 +18,6 @@
   "dependencies": {
     "string": "~1.9.0",
     "underscore": "~1.6.0",
-    "json-tools": "~0.2.27",
     "colors": "~0.6.2",
     "callsite": "~1.0.0"
   }
