@@ -9,5 +9,5 @@ exports.check = function( path ) {
         return realPath;
     }
 
-    return null;
+    return;
 };
