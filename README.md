@@ -4,7 +4,7 @@ artefactjs-loader
 EXPERIMENTAL: extension for artefactjs to load jsons - abstraction of loading json with meta-data.
 
     state: active
-    version: 0.0.8
+    version: 0.0.9
 
 ## Use-Cases
 
