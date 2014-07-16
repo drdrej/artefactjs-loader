@@ -36,30 +36,4 @@ exports.load = function( fnc, strategy ) {
         throw "ERROR: don't accept param:fnc";
     }
 
-    var json = null;
-
-    try {
-        json = require(path);
-    } catch(err){
-        console.log( "[ERROR] couldn't load config. check exception...".red );
-        console.log( err );
-
-        return;
-    }
-
-    if( !json ) {
-        console.log( "[ERROR] couldn't load config. something is wrong...".red );
-
-        return;
-    }
-
-    console.log( ("[INFO] json loaded. path = " + path).green);
-
-    var stats = fs.statSync(path);
-
-    return {
-        "$path" : path,
-        "$modified" :stats.mtime,
-        "$json" : json
-    };
 };
